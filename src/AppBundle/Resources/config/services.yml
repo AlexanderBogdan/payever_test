@@ -1,0 +1,22 @@
+services:
+    # JSON Encoder
+    app.encoder.json:
+        class: 'Symfony\Component\Serializer\Encoder\JsonEncoder'
+
+    # Album Normalizer
+    app.normalizer.image:
+        class: 'AppBundle\Serializer\Normalizer\ImageNormalizer'
+
+    # Group Normalizer
+    app.normalizer.album:
+        class: 'AppBundle\Serializer\Normalizer\AlbumNormalizer'
+
+    app.serializer.default:
+        class: 'Symfony\Component\Serializer\Serializer'
+        arguments:
+            0:
+                - '@app.normalizer.image'
+                - '@app.normalizer.album'
+                - '@serializer.normalizer.object'
+            1:
+                - '@app.encoder.json'
